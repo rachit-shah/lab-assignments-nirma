@@ -1,0 +1,67 @@
+#include <iostream>
+using namespace std;
+void min_heapify(int *a,int i,int n)
+{
+    int j, temp;
+    temp = a[i];
+    j = 2 * i;
+    while (j <= n)
+    {
+        if (j < n && a[j+1] < a[j])
+            j = j + 1;
+
+        if (temp < a[j])
+            break;
+
+        else if (temp >= a[j])
+        {
+            a[j/2] = a[j];
+            j = 2 * j;
+        }
+
+    }
+
+    a[j/2] = temp;
+
+}
+
+void build_minheap(int *a,int n)
+{
+int i;
+for(i = n/2; i >= 1; i--)
+{
+    min_heapify(a,i,n);
+}
+}
+//void sort(int *a,)
+int main()
+{
+    int n,i, x;
+    cout<<"enter no of elements of array\n";
+    cin>>n;
+    int a[20];
+    for (i = 1; i <= n; i++)
+    {
+        cout<<"enter element"<<(i)<<endl;
+        cin>>a[i];
+    }
+    build_minheap(a,n);
+    cout<<"Min Heap\n";
+    for (i = 1; i <= n; i++)
+    {
+        cout<<a[i]<<endl;
+    }
+    int last=n;
+    cout<<"Sorted Order is"<<endl;
+    for(i=1;i<n;i++)
+    {
+        cout<<a[1]<<" ";
+        int tmp=a[1];
+        a[1]=a[last];
+        a[last]=INT_MAX;
+        last--;
+        build_minheap(a,last);
+
+    }
+    cout<<a[1]<<" ";
+}
